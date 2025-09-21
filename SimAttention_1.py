@@ -1,7 +1,6 @@
-import numpy as np
 import tensorflow as tf
-import ClusterPartition as CP
-import time
+
+
 
 
 # Perform max pooling on the neighborhood of the sampling points
