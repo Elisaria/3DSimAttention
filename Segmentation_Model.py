@@ -32,16 +32,12 @@ class ExportModel(tf.Module):
 
 
 if __name__ == '__main__':
-    data = np.load("ModelNet40/augmented_train.npy")
-    val_data = np.load("ModelNet40/test_data.npy")
-    print(data.shape)
-    print(val_data.shape)
-    labels = np.load("ModelNet40/augmented_label.npy")
-    print(labels.shape)
-    val_labels = np.load("ModelNet40/test_labels.npy")
-    print(val_labels)
-    dataset = tf.data.Dataset.from_tensor_slices((data, labels)).batch(16)
-    val = tf.data.Dataset.from_tensor_slices((val_data, val_labels)).batch(16)
+    train_data = 'data address'
+    val_data = 'data address'
+    train_labels = 'data address'
+    val_labels = 'data address'
+    dataset = tf.data.Dataset.from_tensor_slices((train_data, train_labels)).batch(32)
+    val = tf.data.Dataset.from_tensor_slices((val_data, val_labels)).batch(32)
 
     model = model(layer_num=4)
     model.compile(optimizer=keras.optimizers.AdamW(learning_rate=0.0001,
