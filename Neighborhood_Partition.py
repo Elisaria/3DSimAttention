@@ -5,7 +5,7 @@ import tensorflow as tf
 # farthest(batch_size, 1)
 def acquire_centroid_with_farthest(xyz, farthest):
     batch_indexes = tf.expand_dims(tf.range(tf.shape(farthest)[0]), axis=-1)
-    # (batch_size, 2), 存储着xyz沿axis=0, axis=1上的索引
+    # (batch_size, 2), storing the indices of xyz along axis=0 and axis=1
     batch_size_and_n_points_indexes = tf.concat([batch_indexes, farthest], axis=-1)
     # (batch_size, 3)
     output = tf.gather_nd(params=xyz, indices=batch_size_and_n_points_indexes)
@@ -78,7 +78,7 @@ def Adaptive_Sparse_Sampling(P, n):
 # Use the KNN algorithm to group the k nearest neighbor points around each centroid into a neighborhood
 # The KNN evaluation criterion uses L1 distance
 # return (B, n, k, 3)
-def Neighboorhood_Partition(P, centroids, k):
+def Neighborhood_Partition(P, centroids, k):
     # (B, n, N, 3)
     temp = tf.tile(tf.expand_dims(P, axis=1), [1, tf.shape(centroids)[1], 1, 1])
     # (B, n, N)
@@ -94,4 +94,5 @@ if __name__ == '__main__':
     print(data.shape)
     centroids = Adaptive_Sparse_Sampling(data, 16)
     print(centroids.shape)
-    Neighboorhoods = Neighboorhood_Partition(data, centroids, 6)
+    Neighborhoods = Neighborhood_Partition(data, centroids, 6)
+    print(Neighborhoods.shape)
