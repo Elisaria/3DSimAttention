@@ -25,5 +25,49 @@ Here, the specific value of "instances" depends on the number of instances that 
 -**SimAttention.py** : The official implementation of 3DSimAttention.  
 -**LSHAttention.py** : The implementation method of applying Locality-Sensitive Hashing (LSH) Attention to point clouds.  
 
--**Neighborhood_Partition.py** :  Two point cloud sampling methods are implemented. One is the classic Farthest Point Sampling (FPS) algorithm. The other is a new Adaptive Sparse Sampling (ASS) method proposed by us, which can adaptively allocate sampling points according to the sparsity of point clouds. With significantly lower computational complexity than FPS, it is suitable for sampling large-scale point clouds and is our recommended sampling method.
+-**Neighborhood_Partition.py** :  Two point cloud sampling methods are implemented. One is the classic Farthest Point Sampling (FPS) algorithm. The other is a new Adaptive Sparse Sampling (ASS) method proposed by us, which can adaptively allocate sampling points according to the sparsity of point clouds. With significantly lower computational complexity than FPS, it is suitable for sampling large-scale point clouds and is our recommended sampling method.  
+
+## Run the Example
+Provide a minimal, runnable example — no complex configurations.  
+```
+import tensorflow as tf
+from tensorflow import keras
+import Classification_Model as Model
+
+# saving model
+class ExportModel(tf.Module):
+    def __init__(self, model):
+        self.model = model
+
+    @tf.function(input_signature=[tf.TensorSpec(shape=[100, 2048, 3], dtype=tf.float32)])
+    def __call__(self, inputs):
+        result = self.model(inputs, training=False)
+        return result
+
+# training model
+if __name__ == '__main__':
+    train_data = ''
+    val_data = ''
+    train_labels = ''
+    val_labels = ''
+    dataset = tf.data.Dataset.from_tensor_slices((train_data, train_labels)).batch(32)
+    val = tf.data.Dataset.from_tensor_slices((val_data, val_labels)).batch(32)
+
+    model = Model.model(layer_num=4)
+    model.compile(optimizer=keras.optimizers.AdamW(learning_rate=0.0001,
+                                                   weight_decay=0.01,
+                                                   beta_1=0.9,
+                                                   beta_2=0.95
+                                                   ),
+                  loss=keras.losses.sparse_categorical_crossentropy,
+                  metrics=['accuracy'])
+    model.fit(dataset,
+              validation_data=val,
+              epochs=1500)
+
+    export_model = ExportModel(model)
+    tf.saved_model.save(export_model, export_dir='ModelNet40_model')
+```
+
+By running this example, you will be able to train a classification model that achieves an accuracy of over 90% on the ModelNet40 dataset.
 
