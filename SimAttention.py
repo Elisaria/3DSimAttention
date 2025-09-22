@@ -13,14 +13,14 @@ from keras import layers
 # make the neighborhood features possess order invariance.
 class Neighborhood_MaxPooling(layers.Layer):
 
-    def __init__(self, channels, **kwargs):
+    def __init__(self, d, **kwargs):
         super().__init__(**kwargs)
         # High-Rank Mapping
         # Minimize the loss of feature information caused by Max Pooling
-        self.HR_dense = layers.Dense(2 * channels, activation='relu')
+        self.HR_dense = layers.Dense(2 * d, activation='relu')
         # Low-Rank Mapping
         # Reduce the input burden of subsequent network layers
-        self.LR_dense = layers.Dense(channels, activation='relu')
+        self.LR_dense = layers.Dense(d, activation='relu')
 
     def build(self, input_shape):
         self.MaxPool = layers.MaxPool2D(pool_size=[1, input_shape[-2]], strides=1)
