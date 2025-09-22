@@ -1,5 +1,5 @@
 # 3DSimAttention
-This project is the official implementation of the paper titled 3DLSHAttention: Efficient Sparse Attention Mechanism for 3D Point Cloud Processing Using 3DSimAttention.
+This project is the official implementation of the paper titled <<Efficient Sparse Attention Mechanism for 3D Point Cloud Processing Using 3DSimAttention>>.
 ## About
 -**Core Purpose** : Designing to enhance the efficiency and generalization capability of Transformers in processing 3D point clouds.  
 -**Use Case** : 3D point cloud classification, segmentation.  
