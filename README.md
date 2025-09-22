@@ -13,16 +13,15 @@ When the Neighborhood-Wise (NW) paradigm is adopted:
 2. Then, pooling is applied to obtain latent features with a shape of (batch_size, n=72, d=32).  
 
 When the **Point-Wise (PW) paradigm** is used:  
-P is directly fed into 3DSimAttention without additional processing.  
-Regardless of the paradigm adopted, the final output shape of the classification task remains (batch\_size, class=40).
+P is directly fed into 3DSimAttention without additional processing. Regardless of the paradigm adopted, the final output shape of the classification task remains (batch\_size, class=40).
 
--**Segmentation_Model.py** : This is a case of 3DSimAttention applied to the segmentation task. Segmentation can be regarded as fine-grained classification performed on individual points, and the output length of the model is consistent with the input length. For example:(batch_size, L, 3) -> (batch_size, L, instances).  
-Here, the specific value of "instances" depends on the number of instances that need to be segmented in the task.  
+-**Segmentation_Model.py** : This is a case of 3DSimAttention applied to the segmentation task. Segmentation can be regarded as fine-grained classification performed on individual points, and the output length of the model is consistent with the input length. For example:(batch_size, L, 3) -> (batch_size, L, instances). Here, the specific value of "instances" depends on the number of instances that need to be segmented in the task.  
 
 -**SimAttention.py** : The official implementation of 3DSimAttention.  
+
 -**LSHAttention.py** : The implementation method of applying Locality-Sensitive Hashing (LSH) Attention to point clouds.  
 
--**Neighborhood_Partition.py** :  Two point cloud sampling methods are implemented. One is the classic Farthest Point Sampling (FPS) algorithm. The other is a new Adaptive Sparse Sampling (ASS) method proposed by us, which can adaptively allocate sampling points according to the sparsity of point clouds. With significantly lower computational complexity than FPS, it is suitable for sampling large-scale point clouds and is our recommended sampling method.  
+-**Neighborhood_Partition.py** : Two point cloud sampling methods are implemented. One is the classic Farthest Point Sampling (FPS) algorithm. The other is a new Adaptive Sparse Sampling (ASS) method proposed by us, which can adaptively allocate sampling points according to the sparsity of point clouds. With significantly lower computational complexity than FPS, it is suitable for sampling large-scale point clouds and is our recommended sampling method.  
 
 ## Run the Example
 Provide a minimal, runnable example — no complex configurations.  
