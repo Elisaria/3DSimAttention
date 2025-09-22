@@ -98,9 +98,7 @@ def Memory_Reorganization(activations, RMVs, k_h):
     return permuted_activations
 
 
-# Based on SimValues,
-# a neighborhood feature sequence with local correlation is constructed,
-# thereby obtaining attention in the form of a sliding window.
+
 class SimAttention(layers.Layer):
     # The window size must be odd
     # If the window_size is equal to input_shape[1], it degenerates into full attention.
